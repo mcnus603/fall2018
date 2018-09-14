@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+
+	<title></title>
+</head>
+<body>
+
+	<div id = "wrapper"></div>
+
+
+	<script type="text/javascript">
+	
+//Homework
+
+//Maybe use ascii and generate random letters and symbols that rotate and have different typefaces? 
+
+	var myArray = [
+		["Hello", 50, "red"], 
+		["goodbye", 80, "green"], 
+		["class", 60, "magenta"], 
+		["random words", 100, "purple"],
+	];
+
+
+	for(var i = 0; i < myArray.length; i++) {
+		var el = document.createElement("div");
+
+		el.className = "newHeader";
+		el.innerHTML = `
+
+		<h1 style ="font-size:${myArray[i][1]}px; color:${myArray[i][2]}">${myArray[i][0]}</h1>
+
+		`
+		document.getElementById("wrapper").appendChild(el);
+	}
+
+	//template literal
+
+
+//–––––––––––––––––––––––––––––––––––––––––––––
+	//NOTES
+
+ 	//STRINGS: 
+ 	//"this can be anything"
+ 	//'single quotes too'
+ 	//"this is 'a' string with quotes"
+
+ 	//NUMBERS (floats, int)
+ 	//200
+
+ 	//BOOLEANS
+ 	//true or false
+ 	
+ 	//ARRAY 
+ 	//[3, 6, 9, 4.7, 5]
+ 	//["hello", 79.5, true, ["meta", "array"]]
+ 	//can get index values and length 
+
+ 	//escape characters and unicode characters
+
+ 	//AND &&
+ 	//OR ||
+ 	//MODULO % for remainders 
+
+
+
+
+	</script>
+</body>
+</html>
+
+
+
+
+
+
