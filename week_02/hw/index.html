@@ -13,21 +13,17 @@
 		}
 
 		.module{
-	/*		width: 10px;
-			height: 10px;*/
-		/*	background-color: blue;*/
 			display: inline-block;
 			margin-right:5px; 
 		}
 
 		h1{
-		/*	font-family: Helvetica;*/
-			color: #0351FF;
+			color: white;
 
 
 		}
 		body{
-			background-color: #88A6EA;
+			background-color: black;
 		}
 
 	</style>
@@ -41,38 +37,36 @@
 	
 //Homework
 
-//Maybe use ascii and generate random letters and symbols that rotate and have different typefaces? 
-
-//fading in and out colors 
-//but random transparency
-
 var wrapper = document.getElementById("wrapper");
-
 var rows = 20;
 var cols = 20;
 
 var moduleWidth = wrapper.offsetWidth/cols;
 var moduleHeight = wrapper.offsetHeight/rows; 
 
+var typeArray = ["monospace", "Helvetica", "Times", "Georgia"];
+
 	for(var i = 0; i < rows; i++) {
 		for(var j = 0; j < cols; j++) {
-			//ASCII KEYS FROM 65 - 126
+			
 			var asciiMin = 65;
 			var asciiMax = 127;
-
 			var asciiCode = Math.floor(Math.random() * (asciiMax - asciiMin) + asciiMin);
-			console.log(asciiCode);
+
 			var c = String.fromCharCode(asciiCode);
+			var a = Math.random();
+			var mod = j%typeArray.length;
+			var font = typeArray[mod];
 
 			var posX = moduleWidth * i;
 			var posY = moduleWidth * j;
 
-			var a = Math.random();
+			
 
 			var el = document.createElement("div");
 			el.className = "aChar";
 			el.innerHTML = `
-			<h1 style = "font-size *2:${moduleHeight}px; opacity:${a};top:${posY}px; left:${posX}px;"> ${c} </h1> 
+			<h1 style = "font-size *2:${moduleHeight}px; opacity:${a};top:${posY}px; left:${posX}px; font-family:${font}"> ${c} </h1> 
 
 			`
 			el.className = "module";
@@ -80,7 +74,6 @@ var moduleHeight = wrapper.offsetHeight/rows;
 
 		}
 	}
-
 
 
 	</script>
