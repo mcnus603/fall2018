@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style> 
+
+
+	html, body{
+		padding: 0;
+		margin: 0;
+		font-size: 15px;
+	}
+
+	.weather{
+		text-align: center;
+		font-size: 32px;
+	}
+
+
+	</style>
+</head>
+<body>
+	<div id = "wrapper"></div>
+
+	<script type="text/javascript">
+		
+		//SetTimeout 
+
+		//while loop better for something other than numbers (boolean, string) -- kind of like an if statement 
+
+		var interval = 0;
+		var counter = 0;
+
+		for(var i = 0; i < 50; i++) {
+
+			setTimeout(function() {
+
+
+			var weather = document.createElement("div");
+			weather.className = "weather";
+
+			var snow = "";
+
+			for (var j = 0; j < 30; j++) {
+
+				var snowOrRain = Math.ceil(Math.random()*100);
+
+				if(snowOrRain <= 33) {
+					snow += " ";
+				} else if(snowOrRain > 33 && snowOrRain <= 66 ) {
+					snow += "💧"
+				} else if (snowOrRain > 66) {
+					snow += "❄️"
+				}
+			}
+
+			weather.innerHTML = snow;
+			document.getElementById("wrapper").appendChild(weather);
+
+			window.scrollTo(0, document.body.scrollHeight);
+
+				counter++;
+			}, interval);
+
+			interval += 100;
+		}
+
+
+
+
+
+
+
+	</script>
+
+</body>
+</html>
+
+
+
+

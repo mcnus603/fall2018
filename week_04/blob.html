@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<style type="text/css">
+		
+		*{
+			box-sizing: border-box;
+		}
+
+		html, body, #wrapper{
+			padding: 0;
+			margin: 0;
+			width: 100%;
+			overflow-x: hidden;
+		}
+
+		html, body{
+			font-size: 15px;
+			background-color: black;
+		}	
+
+
+		#wrapper{
+			width: 100vw;
+
+		}
+
+		.container{
+			/*position: relative;
+			display: inline-block;
+			width: 11.11vw;
+			height: 11.11vw;
+			*/
+			position: absolute;
+			top: 0;
+			left:0;
+			right: 0;
+			bottom:0;
+			margin-top: auto;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: auto;
+			width: 50vw
+			height: 50vw;
+		}
+
+		.circle{
+			position: absolute;
+			border-radius: 50%;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+
+	</style>
+</head>
+<body>
+
+	<div id="wrapper"></div>
+
+
+	<script type="text/javascript">
+		
+		var interval = 0;
+		var counter = 0;
+
+		var circleDiameter = 0; 
+		var direction = false;
+		var totalLength = 100;
+
+		for(var i =0; i < totalLength; i++) {
+
+			setTimeout(function(){
+
+				var container = document.createElement("div");
+				container.className = "container";
+
+				if(i % 5 ==0) {
+					direction = false;
+				} else {
+					direction = true;
+					circleDiameter = 1;
+				}
+
+				if(!direction) {
+					circleDiameter++;
+				} else{
+					circleDiameter--;
+				}
+				
+				if(i % 6 == 0) {
+					if(direction) {
+						direction = false;
+						circleDiameter = 1;
+					} else {
+						direction = true;
+					}
+				}
+
+				var opacity = circleDiameter / 5;
+				var progress = counter/(totalLength - 1);
+
+				var red = 255 - (progress * 255); 
+				var blue = progress * 255;
+				var color = "rgb(" + red + ", 170," + blue + ")";
+
+				container.innerHTML = `
+				<div style = "width:${circleDiameter}vw; height:${circleDiameter}vw; opacity:${opacity}; background-color:${color};" class ="circle"></div>
+
+			`
+
+ 				
+			var child = document.getElementsByClassName("container");
+			console.log(child);
+
+				document.getElementById("wrapper").appendChild(container)
+			}, interval);
+
+			interval += 100;
+		}
+
+		
+
+
+	</script>
+
+
+
+
+
+</body>
+</html>
+
+
+
+
