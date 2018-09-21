@@ -7,17 +7,34 @@
 	<style type="text/css">
 		
 		html{
-			background-color: lightblue;
+			background-color: black;
 		}
 
-		.newHeader{
-			color: green;
-			font-weight: 300;
-			font-family: monospace;
+		html, body, div{
+			margin: 0;
+			padding: 0; 
+			font-size: 0;
 		}
 
-		.blue{
-			background-color: blue;
+		.container{
+			position: relative;
+			display: inline-block;
+			width: 10vw;
+			height: 10vw;
+		
+		}
+
+		.circle{
+			position: absolute;
+			/*background-color: red;*/
+			border-radius: 50%;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		#wrapper{
+			width: 100vw;
 		}
 
 
@@ -31,9 +48,48 @@
 
 
 	<script type="text/javascript">
-		
+
+		var circleDiameter = 2;
+		var direction = false;
+		var totalLength = 300;
+
+		for(var i = 0; i < totalLength; i++) {
+
+			var container = document.createElement("div");
+			container.className = "container";
+
+			if(!direction) {
+				circleDiameter++;
+			} else{
+				circleDiameter--;
+			}
+			
+			if(i % 6 == 0) {
+				if(direction) {
+					direction = false;
+					circleDiameter = 1;
+				} else {
+					direction = true;
+				}
+			}
+
+			var opacity = circleDiameter / 5;
+
+			var progress = i / totalLength;
+
+			var red = 255 - (progress * 255); 
+			var blue = progress * 255;
+			var color = "rgb(" + red + ", 170," + blue + ")";
 
 
+			container.innerHTML = `
+
+			<div style = "width:${circleDiameter}vw; height:${circleDiameter}vw; opacity:${opacity}; background-color:${color};" class ="circle"></div>
+
+			`
+			document.getElementById("wrapper").appendChild(container);
+
+		}
 
 	</script>
 </body>

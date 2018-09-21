@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pattern pt. 2</title>
+	<style>
+		#wrapper{
+			width: 100vw;
+			/*height: 100vh;*/
+			/*background-color: salmon;*/
+			margin: 0;
+			padding: 0;
+		}
+
+		.module{
+			display: inline-block;
+/*			height: 5vw;*/
+		/*	width: 5vw;*/
+			margin: .5vw;
+			font-size: 50px;
+			/*background-color: red;*/
+			/*color:white;*/
+			text-align: center;
+
+
+		}
+
+		.letter{
+
+		}
+
+		body{
+			background-color: black;
+		}
+
+	</style>
+</head>
+<body>
+<div id ="wrapper"></div>
+
+
+<script>
+	document.getElementById("wrapper");
+
+	var rows = 500;
+	var cols = 20;
+	var typeArray = ["monospace", "Helvetica", "Times", "Georgia"];
+
+	for(var i = 0; i < cols; i++) {
+		for(var j = 0; j < rows; j++) {
+			var asciiMin = 65;
+			var asciiMax = 127;
+			var asciiCode = Math.floor(Math.random() * (asciiMax - asciiMin) + asciiMin);
+			var c = String.fromCharCode(asciiCode);
+			var o = Math.random();
+			var mod = j%typeArray.length;
+
+			var el = document.createElement("div");
+			el.className = "module";
+			wrapper.appendChild(el);
+			el.innerHTML = c;
+			el.style.fontSize = (i+4) * 8 + "px";
+			el.style.width = (j % 2)* 4 +"px";
+			el.style.height = (i + 4) +"px";
+			el.style.opacity = o;
+			el.style.fontFamily = typeArray[mod];
+
+			var b = j%8 *10;
+
+			var col = "rgb(" + b + ", 20, 20)";
+			el.style.color = col;
+		}
+	}
+
+</script>
+
+</body>
+</html>

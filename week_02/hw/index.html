@@ -5,21 +5,23 @@
 	<title>Pattern</title>
 	<style>
 		#wrapper{
-			width: 80vw;
-			height: 80vh;
-/*			background-color: pink;
-*/			margin-top: 10vh;
-			margin-left: 10vw;
+			width: 100vw;
+			height: 100vh;
+			/*background-color: pink;*/
+		/*	margin-top: 5vh;
+			margin-left: 5vw;*/
+			position: relative;
 		}
 
 		.module{
+	/*		position: relative;*/
 			display: inline-block;
 			margin-right:5px; 
 		}
 
-		h1{
+		.letter{
+			position: absolute;
 			color: white;
-
 
 		}
 		body{
@@ -36,37 +38,50 @@
 	<script type="text/javascript">
 	
 //Homework
+//container and then center the H1's in the container 
 
 var wrapper = document.getElementById("wrapper");
-var rows = 20;
+
+vear rows = 15;
 var cols = 20;
 
 var moduleWidth = wrapper.offsetWidth/cols;
 var moduleHeight = wrapper.offsetHeight/rows; 
 
+console.log(wrapper.offsetHeight);
+
 var typeArray = ["monospace", "Helvetica", "Times", "Georgia"];
 
 	for(var i = 0; i < rows; i++) {
 		for(var j = 0; j < cols; j++) {
-			
+		
+			//Find ASCII
 			var asciiMin = 65;
 			var asciiMax = 127;
 			var asciiCode = Math.floor(Math.random() * (asciiMax - asciiMin) + asciiMin);
-
 			var c = String.fromCharCode(asciiCode);
-			var a = Math.random();
+
+			//opacity
+			var opacity = Math.random();
+
+			//font variants
 			var mod = j%typeArray.length;
 			var font = typeArray[mod];
 
-			var posX = moduleWidth * i;
-			var posY = moduleWidth * j;
+			//find position for modules 
+			var posX = moduleWidth * j;
+			var posY = moduleWidth * i;
 
-			
-
+			//create element
 			var el = document.createElement("div");
-			el.className = "aChar";
+
+			el.style.top = posY +"px"; 
+			el.style.left = posX + "px";
+			el.style.width = moduleWidth + "px";
+			el.style.height = moduleHeight + "px";
+
 			el.innerHTML = `
-			<h1 style = "font-size *2:${moduleHeight}px; opacity:${a};top:${posY}px; left:${posX}px; font-family:${font}"> ${c} </h1> 
+			<div style = "font-size:${moduleHeight * 2}px; opacity:${opacity}; font-family:${font}" class = "letter"> ${c} </div> 
 
 			`
 			el.className = "module";
