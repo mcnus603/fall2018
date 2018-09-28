@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Animated Pattern</title>
+
+	<style>
+
+	@font-face{
+		font-family:"caslon";
+		src: url("fonts/Caslon540LTStd-Roman.otf");
+	}
+	@font-face{
+		font-family:"clarendon";
+		src: url("fonts/ClarendonLTStd-Bold.otf");
+	}
+	@font-face{
+		font-family:"didot";
+		src: url("fonts/DidotLTStd-Headline.otf");
+	}
+	@font-face{
+		font-family:"frutiger";
+		src: url("fonts/FrutigerLTStd-UltraBlack.otf");
+	}
+	@font-face{
+		font-family:"optimal";
+		src: url("fonts/OptimaLTStd-Medium.otf");
+	}
+	@font-face{
+		font-family:"trajan";
+		src: url("fonts/TrajanPro-Regular.otf");
+	}
+	@font-face{
+		font-family:"fouriner";
+		src: url("fonts/FournierMTStd-Italic.otf");
+	}
+	#wrapper{
+		width: 80vw;
+		height: 80vh;
+		color: white;
+		margin-left: 10vw;
+		margin-top: 10vh;
+		text-align: center;
+	}
+
+	.animation1{
+		font-size: 400px;
+		font-family: frutiger;
+	}
+
+	.animation2{
+/*		font-size: 50px;*/
+		font-family: monospace;
+		display: inline-block;
+	}
+
+	body{
+		background-color: black;
+		overflow: hidden;
+	}
+
+	</style>
+</head>
+<body>
+
+	<div id = "wrapper"></div>
+
+
+	<script>
+
+
+		//set interval run animation 
+		var counter = 0;
+		var wrapper = document.getElementById("wrapper");
+		var textSize = 10;
+
+		var fontArray = ["helvetica", "times new roman", "caslon", "clarendon", "trajan", "frutiger", "fouriner", "optimal", "didot"];
+
+		function calcAscii() {
+				var asciiMin = 65;
+				var asciiMax = 127;
+				var asciiCode = Math.floor(Math.random() * (asciiMax - asciiMin) + asciiMin);
+				var c = String.fromCharCode(asciiCode);
+			return c;
+		}
+
+
+		window.setInterval(runAnAnimation, 120);
+
+		
+		var a = calcAscii();
+		var b = calcAscii();
+		var c = calcAscii();
+		var d = calcAscii();
+		var numLetters = 300;
+		var fontS = 20;
+
+		function runAnAnimation() {
+			
+			counter++;
+			
+
+
+			//ANIMATION 1;
+			if(counter < 50) {
+				var mod = counter%fontArray.length;
+				removeElements("animation1", 1);
+
+				var el = document.createElement("div");
+				el.className = "animation1";
+				el.style.fontFamily = fontArray[mod];
+		
+				el.innerHTML = a;
+				wrapper.appendChild(el);
+
+			} else if(counter >= 50 && counter < 100) {
+				fontS += 10;
+				if(counter == 50) {
+					removeElements("animation1", 1);
+				} else {
+					removeElements("animation2", numLetters);
+				}
+
+				for(var i = 0; i < numLetters; i++) {
+					var char = calcAscii();
+					var el = document.createElement("div");
+					el.className = "animation2";
+					el.innerHTML = char;
+					el.style.fontSize = fontS +"px"
+					wrapper.appendChild(el);
+				}
+			} else if(counter == 100) {
+				
+				removeElements("animation2", numLetters);
+				a = calcAscii();
+				b = calcAscii();
+				c = calcAscii();
+				d = calcAscii();
+				numLetters = 300;
+				fontS = 20;
+				counter = 0;
+			}
+
+
+
+			function removeElements(cN, num) {
+				for (var i = num; i > 0; i--) {
+				var child = document.getElementsByClassName(cN)[i - 1];
+				console.log(child);
+					if(child) {
+						child.remove();
+					}
+				}
+				
+			}
+
+
+
+
+
+			//reset 
+
+
+
+
+
+		}
+		//different functions that animate letters
+		//randomization of which function plays when 
+
+		//set interval that calls when an animation plays 
+		//set timeout for each animation 
+
+		function animation1() {
+			//1 letter
+			//different fonts
+		}
+
+
+	</script>
+
+</body>
+</html>

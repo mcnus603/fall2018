@@ -14,7 +14,8 @@
 
 	.weather{
 		text-align: center;
-		font-size: 32px;
+		font-size: 100px;
+		margin: 50px;
 	}
 
 
@@ -42,16 +43,18 @@
 
 			var snow = "";
 
-			for (var j = 0; j < 30; j++) {
+			for (var j = 0; j < 4; j++) {
 
 				var snowOrRain = Math.ceil(Math.random()*100);
 
-				if(snowOrRain <= 33) {
-					snow += " ";
-				} else if(snowOrRain > 33 && snowOrRain <= 66 ) {
-					snow += "💧"
-				} else if (snowOrRain > 66) {
-					snow += "❄️"
+				if(snowOrRain <= 25) {
+					snow += "♣️";
+				} else if(snowOrRain > 25 && snowOrRain <= 50 ) {
+					snow += "♥️"
+				} else if(snowOrRain > 50 && snowOrRain <= 75 ) {
+					snow += "♦️"
+				} else if (snowOrRain > 75) {
+					snow += "♠️"
 				}
 			}
 
@@ -63,7 +66,7 @@
 				counter++;
 			}, interval);
 
-			interval += 100;
+			interval += 50;
 		}
 
 
