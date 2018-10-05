@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Class Week 04</title>
+
+	<style type="text/css">
+		
+	</style>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript">
+
+		$(document).ready(function() {
+			$("#wrapper").html("HELLO");
+			$("#wrapper").css({"background-color": "red",
+												"color": "pink"});
+
+			$(".anotherClass").each(function(){
+				$(this).html($(this).index());
+			});
+
+
+		});
+
+
+	</script>
+</head>
+<body>
+
+	<div id ="wrapper"></div>
+
+	<div class ="anotherClass"></div>
+	<div class ="anotherClass"></div>
+	<div class ="anotherClass"></div>
+	<div class ="anotherClass"></div>
+	<div class ="anotherClass"></div>
+	<div class ="anotherClass"></div>
+	<div class ="anotherClass"></div>
+	<div class ="anotherClass"></div>
+
+</body>
+</html>
