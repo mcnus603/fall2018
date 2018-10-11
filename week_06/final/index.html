@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Animated Pattern</title>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+	<style>
+
+
+	@font-face{
+		font-family:"caslon";
+		src: url("fonts/Caslon540LTStd-Roman.otf");
+	}
+	@font-face{
+		font-family:"clarendon";
+		src: url("fonts/ClarendonLTStd-Bold.otf");
+	}
+	@font-face{
+		font-family:"didot";
+		src: url("fonts/DidotLTStd-Headline.otf");
+	}
+	@font-face{
+		font-family:"frutiger";
+		src: url("fonts/FrutigerLTStd-UltraBlack.otf");
+	}
+	@font-face{
+		font-family:"optimal";
+		src: url("fonts/OptimaLTStd-Medium.otf");
+	}
+	@font-face{
+		font-family:"trajan";
+		src: url("fonts/TrajanPro-Regular.otf");
+	}
+	@font-face{
+		font-family:"fouriner";
+		src: url("fonts/FournierMTStd-Italic.otf");
+	}
+	@font-face{
+		font-family:"franklin";
+		src: url("fonts/FranklinGothicStd-ExtraCond.otf");
+	}
+	@font-face{
+		font-family:"garamond";
+		src: url("fonts/Garamond3LTStd-Bold");
+	}
+	@font-face{
+		font-family:"typewriter";
+		src: url("fonts/TypewriterEliteMTStd.otf");
+	}
+
+	
+	
+	#wrapper{
+		width: 90vw;
+		height: auto;
+		margin-left: 5vw;
+		margin-top: 5vh;
+		color: white;
+		text-align: center;
+	/*	font-size: 100px;*/
+	
+	}
+	.aSpan{
+		display: inline-block;
+		position: relative;
+	}
+
+	#cursor{
+		display: inline-block;
+		position: relative;
+		background-color: white;
+		height: 100px; 
+		width:10px;
+	}
+
+/*	body{
+		background-color: black;
+	}*/
+
+	#controls{
+		width: 100vw;
+/*		background-color: black;
+*/		bottom: 0;
+		margin: 0;
+		padding: 0;
+		left: 0;
+		position: fixed;
+		color: white;
+
+	}
+
+	.slider{
+		width: 20vw; /* Full-width */
+    height: 25px; /* Specified height */
+    opacity: 0.5; /* Set transparency (for mouse-over effects on hover) */	
+    margin-left: 40px;
+  /*  position: fixed;*/
+	}
+
+	.buttons{
+		background-color: white;
+		width: 60px;
+		color: black;
+		opacity: 0.5;
+		display: inline-block;
+		text-align: center;
+		font-family: monospace;
+		margin-left: 20px;
+		top: 50%;
+		transform: translate(0, -50%);
+	}
+
+.buttons:hover{
+	opacity: 0.1;
+}
+
+	</style>
+</head>
+<body>
+	<div id = "wrapper">
+		<div id = "cursor"></div>
+	</div>
+	<div id="controls">
+		
+			<input type="range" min="60" max="600" value="100" class="slider" id="size">
+			<input type="range" min="100" max="800" value="200" class="slider" id="speed">
+			<div id = "bw" class = "buttons">
+				B&W
+			</div>
+			<div id = "color" class = "buttons">
+				color
+			</div>
+
+	</div>
+
+	<script>
+		var blink = 0;
+		var fontS = 100;
+		var textSize = 10;
+		var int = 200;
+		var wrapper = document.getElementById("wrapper")
+		var showLetters = false;
+		var letters = [];
+		var divs = [];
+		var sizeSlider = document.getElementById("size");
+		var speedSlider = document.getElementById("speed");
+		var fontArray = ["helvetica", "times new roman", "caslon", "clarendon", "trajan", "frutiger", "fouriner", "optimal", "didot", "franklin", "garamond", "typewriter"];
+
+		var bw = true;
+		var bwButton = document.getElementById("bw");
+		var colorButton = document.getElementById("color");
+		var r1;
+		var g1;
+		var b1; 
+		var r2;
+		var g2; 
+		var b2;
+		var colorArray = [r1, g1, b1, r2, g2, b2];
+		var colorInc = [true, true, true, true, true, true]
+
+		addEventListeners();
+		typeAnimation();
+		cursorAnimation();
+		checkButtons();
+
+
+
+	//IF BACKSPACE IS PRESSED
+		$('html').keyup(function(e){
+			if(e.keyCode == 8) {
+				var i = divs.length - 1;
+
+				var child = document.getElementsByClassName("aSpan")[i];
+				if(child) {
+					child.remove();
+					divs.splice(i, 1);
+					if(divs.length == 0) {
+						showLetters = false;
+						document.getElementById("cursor").opacity = 1;
+					}
+				}
+				
+			}  else if(e.key === ' ') {
+				var letter = "&nbsp;"; 
+				createEl(letter);
+			}
+		});
+
+	function cursorAnimation() {
+		window.setInterval(function(){
+			if(showLetters == false) {
+				cursor();
+			}
+		}, 600);
+	}
+
+
+	function runAnimation() {
+		for(var i = 0; i < divs.length; i++) {
+			var aDiv = divs[i];
+			var min = 0;
+			var max = fontArray.length - 1;
+			var r = Math.floor(Math.random() * (max - min) + min);
+
+			aDiv.style.fontFamily = fontArray[r];
+		}		
+	}
+
+	function addEventListeners() {
+		//keypress
+		bwButton.addEventListener("click", function(){
+			bw = true;
+			checkButtons();
+		});
+
+		colorButton.addEventListener("click", function(){
+			bw = false;
+			checkButtons();
+		});
+
+		window.addEventListener("keypress", function(e){
+			var letter = e.key;
+			createEl(letter);
+
+			if(showLetters == false) {
+				showLetters = true;
+				var c = document.getElementById("cursor").style.opacity = 0;
+				}
+			});
+		
+		//slider for speed
+		speedSlider.addEventListener("input", function(e){
+			var value = e.srcElement.value;
+			var adjValue = mapValue(value)
+
+			int = adjValue;
+			updateFontSize();
+		});
+		//slider for size
+		sizeSlider.addEventListener("input", function(e){
+			var value = e.srcElement.value;
+			fontS = value;
+			updateFontSize();
+		});
+			
+	}
+
+	function mapValue(num) {
+		var min = 100;
+		var max = 800;
+
+		var newVal = max - num + min;
+
+		return newVal;
+	}
+
+		//CURSOR EFFECT
+		function cursor() {
+			console.log(blink);
+			blink++;
+			if(blink == 2) {
+				blink = 0;
+			}
+			var c = document.getElementById("cursor");
+			if(blink == 0) {
+				c.style.opacity = 0
+			} else {
+				c.style.opacity = 1;
+			}
+		}
+
+		function typeAnimation() {
+			setTimeout(function(){
+				typeAnimation()
+				runAnimation()
+			}, int); 
+		}
+
+		//UPDATE FONT SIZE
+		function updateFontSize() {
+			document.getElementById("cursor").style.height = fontS *.75 + "px";
+			for(var i = 0; i < divs.length; i++) {
+				var anEl = divs[i];
+				anEl.style.fontSize = fontS + "px";
+			}
+		}
+		//CREATE EL WHEN KEY PRESSED
+		function createEl (char) {
+			var el = document.createElement("div");
+			el.innerHTML = char;
+			el.className = "aSpan";
+			el.style.fontSize = fontS + "px";
+			divs.push(el);
+			wrapper.appendChild(el);
+		}
+
+		function checkButtons() {
+			if(bw == true) {
+				bwButton.style.opacity = 1;
+				colorButton.style.opacity = .5;
+			} else if(bw == false) {
+				bwButton.style.opacity = .5;
+				colorButton.style.opacity = 1;
+			}
+			changeColors();
+		}
+
+		function changeColors() {
+			if(bw == true) {
+				colorButton.innerHTML = "color";
+				document.body.style.backgroundColor = "black";
+				wrapper.style.color = "white";
+
+			} else if(bw == false) {
+				colorButton.innerHTML = "more";
+
+				//generate RGB values
+				var bCArray = [];
+				for (var i = 0; i < 3; i++) {
+					var r = Math.random()*255;
+					bCArray.push(r);
+				}
+				var cArray = [];
+				for (var i = 0; i < 3; i++) {
+					var r = Math.random()*255;
+					cArray.push(r);
+				}
+
+				r1 = bCArray[0];
+				g1 = bCArray[1];
+				b1= bCArray[2];
+
+				r2 = cArray[0];
+				g2= cArray[1];
+				b2 = cArray[2];
+
+				animateColors();
+			}
+		}
+
+		function animateColors() {
+			document.body.style.backgroundColor = "rgb(" + r1 +',' + g1 +"," +b1 +")";
+			wrapper.style.color = "rgb(" + r2 +',' + g2 +"," +b2 +")";
+		}
+
+
+
+	</script>
+
+</body>
+</html>
