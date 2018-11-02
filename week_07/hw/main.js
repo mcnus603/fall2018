@@ -5,12 +5,12 @@ var globalY;
 var posiNumber = 1;
 var newCookie = true;
 
-Cookies.remove('posi1');
-Cookies.remove('posi2');
-Cookies.remove('posi3');
-Cookies.remove('posi4');
-Cookies.remove('posi5');
-Cookies.remove('posi6');
+// Cookies.remove('posi1');
+// Cookies.remove('posi2');
+// Cookies.remove('posi3');
+// Cookies.remove('posi4');
+// Cookies.remove('posi5');
+// Cookies.remove('posi6');
 
 var positions = [];
 
