@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Craigslist</title>
+	<meta charset= utf-8>
+
+	<style type="text/css">
+		
+		body {
+			width: 100vw;
+		}
+
+		.missed{
+			display: block;
+			margin: 5px;
+		}
+
+		.free{
+			width: 100px;
+			height: auto;
+		}
+		.city{
+			color: blue;
+			text-decoration: underline;
+			display: inline-block;
+			margin: 10px;
+		}
+
+		#wrapper{
+			width: 100vw;
+			height: 100vh;
+
+		}
+
+		#header{
+			margin-bottom: 20px;
+		}
+
+		.city:hover{
+			color: purple;
+		}
+	</style>
+
+	<body>
+		<div id = "header"></div>
+		<div id = "wrapper"></div>
+
+	</body>
+
+	<script type="text/javascript" src="assets/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="assets/jquery.query-yql.min.js"></script>
+
+	<script type="text/javascript">
+
+	var startCity= "newyork";
+
+	var cities = ["atlanta", "austin","boston", "chicago", "dallas", "denver", "detroit", "houston", "lasvegas", "losangeles", "miami", "minneapolis", "newyork", "philadelphia", "phoenix", "portland", "raleigh", "sacramento", "sandiego", "seattle", "sfbayarea", "washdc" ];
+
+	$(document).ready(function(){
+		rss(startCity);
+	});
+
+	//make links 
+	for (var i = 0; i < cities.length; i++) {
+		var city = cities[i];
+
+		var para = document.createElement('p'); 
+		para.className = "city";
+		para.innerHTML = city;
+		document.getElementById('header').appendChild(para);
+
+		//add event lsiteners to them 
+		para.addEventListener("click",function() {
+			cityClick (this.innerText);
+		});
+			
+	}
+
+	function cityClick (text) {
+		var theCity = text;
+
+		clearWrapper(theCity);
+	}
+
+
+	function rss(city) {
+
+		var freeURL =  "'" + "https://" + city + ".craigslist.org/search/zip?format=rss&hasPic=1" + "'";
+		var missingURL =  "'" + "https://" + city + ".craigslist.org/search/mis?format=rss" + "'";
+
+		var freeStatement = "select * from feed where url =" + freeURL;
+		var missingStatement = "select * from feed where url =" + missingURL;
+
+		//FREE STUFF
+		$.queryYQL(freeStatement, "json", undefined, function(data){
+
+			var allFreeImgs = data.query.results.item;
+
+			for (var i = 0; i < allFreeImgs.length; i++) {
+	    	var img = allFreeImgs[i].enclosure.resource
+	    	$('#wrapper').append(`
+
+	    		<img src = ${img} class = "free"> 
+
+	    		`)
+	    	}
+
+		}); 
+
+		//MISSED CONNECTIONS
+		$.queryYQL(missingStatement, "json", undefined, function(data){
+			var allTheText = data.query.results.item;
+
+			for(var i =0; i < allTheText.length; i++) {
+				var title = allTheText[i].title[0];
+				var date = allTheText[i].date;
+				var description = allTheText[i].description;
+
+			$('#wrapper').append(`
+				<p class = "missed"> ${title}  <br/> <br/></p>
+
+				`)
+				console.log(description);
+			}
+
+		}); 
+
+	}
+
+	function	clearWrapper (city) {
+		var newCity = city;
+
+		var theImgs = document.getElementsByClassName('free');
+		var theText = document.getElementsByClassName('missed');
+
+		for(var i = theImgs.length; i >= 0; i--) {
+			var thisImage = theImgs[i];
+
+			if(thisImage) {
+				document.getElementById('wrapper').removeChild(thisImage);
+			}
+		}
+
+		for(var i = theText.length; i >= 0; i--) {
+			var thisText = theText[i];
+			console.log(thisText);
+
+			if(thisText) {
+				document.getElementById('wrapper').removeChild(thisText);
+			}
+		}
+
+		rss(newCity);
+
+	}
+
+
+
+	</script>
+
+</html>

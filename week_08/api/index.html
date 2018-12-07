@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Craigslist</title>
+
+	<style type="text/css">
+		body {
+			width: 100vw;
+		}
+
+		.title{
+			font-size: 20px;
+		}
+
+
+	</style>
+
+	<body>
+		<div id = "wrapper"></div>
+	</body>
+
+	<script type="text/javascript" src="assets/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="assets/jquery.query-yql.min.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+
+			// var theData; 
+			var descrips = [];
+			var statement = "select * from feed where url='https://www.craigslist.org/about/best/all/index.rss'"; // here you link the url you need
+
+	    $.queryYQL(statement, "json", undefined, function (data) { //function taken from the query-yql library 
+	    	// theData = data;
+	    	console.log(data.query.results.item);
+
+	    	var theData = data.query.results.item;
+
+	    	for (var i = 0; i < theData.length; i++) {
+	    		var theEntry = theData[i].title;
+	    		console.log(theEntry);
+	    		console.log('hello');
+
+	    		var theDiv = document.createElement("div"); 
+	    		theDiv.className = 'title';
+	    		theDiv.textContent = theEntry;
+	    	  document.body.appendChild('theDiv');
+
+	    	}
+
+        
+	    })
+
+	 
+	    console.log('hello');
+		})
+
+	</script>
+
+</head>
+<body>
+
+	<div id="times"></div>
+	<div id="arena"></div>
+	<div id="opeanweather"></div>
+
+</body>
+</html>

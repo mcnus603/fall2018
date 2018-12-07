@@ -1,0 +1,137 @@
+
+<html>
+  <head>
+
+    <title>Google Maps</title>
+    <style>
+
+      @font-face{
+        font-family: "founders";
+        src: url("fonts/FoundersGroteskTest-Medium.otf");
+     }
+
+      body, html{
+        margin: 0;
+        padding: 0;
+        font-size: 0;
+      }
+
+
+      #map {
+        margin-top:30px;
+        height: 100vh; 
+        width: 45vw; 
+        left: 55vw;
+        position: absolute;
+       }
+
+       #images{
+        margin-top:30px;
+        height: 100vh;
+        width: 35vw;
+        background-color: #DDDDDD;
+        position: absolute;
+        left: 20vw;
+        overflow-y: scroll;
+       }
+
+       #text{
+        margin-top:30px;
+        width: 20vw;
+        height: 100vh;
+        background-color: #FDF45C;
+        position: absolute;
+        left: 0;
+        overflow-y:scroll;
+       }
+
+      .free{
+        margin-left: 7.5vw;
+        width: 20vw;
+        margin-bottom: 40px;
+        border: 5px solid white;
+        box-shadow: 10px 10px black;
+       }
+
+       .freeDescription{
+        font-family: helvetica;
+        font-size: 70px;
+         margin-left: 2.5vw;
+        width: 20vw;
+        margin-bottom: 10px;
+       }
+
+       .missedTitle{
+        width: 18vw;
+        font-family: founders, helvetica;
+        font-size: 24px;
+        margin-left: 1vw;
+        
+       }
+
+       .missedDate{
+        width: 18vw;
+        font-family: founders, helvetica;
+        font-size: 16px;
+        margin-left: 1vw;
+
+       }
+        .missedDescrip{
+        width: 18vw;
+        font-family: founders, helvetica;
+        font-size: 16px;
+        margin-left: 1vw;
+        border-bottom: 3px solid black;
+       }
+       #banner{
+        height: 30px;
+        width: 100vw;
+        /*background-color: #F8DBFF;*/
+        background-color: white;
+        overflow-x: scroll;
+    /*    position: fixed;*/
+ /*       display: inline-block;*/
+
+       }
+
+       .city{
+      /*  color: white;*/
+        text-decoration: underline;
+        display: inline-block;
+        font-family: founders, sans-serif;
+        font-size: 16px;
+        margin: 10px;
+       }
+
+
+
+    </style>    
+  </head>
+
+  <body>
+
+    <div id = "banner"></div>
+    <div id="text"></div>
+    <div id="images"></div>
+     <div id="map">s</div>
+
+    <script type="text/javascript" src="assets/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="assets/jquery.query-yql.min.js"></script>
+
+    <script type="text/javascript" src = "sketch.js"></script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaYub8Xz9xx5mt8RQ3SrXUpo2nQFN_8Lw&callback=initMap">
+    </script>
+
+  </body>
+</html>
+
+
+<!-- AIzaSyCZpHGHbaAC_hyuCXjlbzlBgKbhNyi_fq4 -->
+
+
+
+
+
+
