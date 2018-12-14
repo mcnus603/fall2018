@@ -1,9 +1,7 @@
 
 //Google Maps and Craigslist Final
 
-var startCity= "atlanta";
-var cities = ["atlanta", "austin","boston", "chicago", "dallas", "denver", "detroit", "houston", "lasvegas", "losangeles", "miami", "minneapolis", "newyork", "philadelphia", "phoenix", "portland", "raleigh", "sacramento", "sandiego", "seattle", "sfbayarea", "washdc" ];
-
+var startCity= "newyork";
 var clCities;
 var cityInfo = [];
 var geocodeCounter = 0;
@@ -18,7 +16,7 @@ var locArray = [];
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 9, 
-    center:  {lat: 33.7490, lng: -84.3880}, 
+    center:  {lat: 40.7127753, lng: -74.0059728}, 
     mapTypeControl: false,
     fullscreenControl: false,
     streetViewControl: false,
@@ -36,12 +34,12 @@ function initMap() {
       {
         featureType: 'water',
         elementType: 'geometry',
-        stylers: [{color: '#3C3C3C'}]
+        stylers: [{color: '#000000'}, {lightness: 60}]
       },
       {
         featureType : 'landscape',
         elementType : 'geometry.fill',
-        stylers : [{color: '#000000'}, {lightness: 85}]
+        stylers : [{color: '#000000'}, {lightness: 70}]
       },
       {
         featureType : 'all',
@@ -66,17 +64,17 @@ function initMap() {
       {
         featureType : 'road.highway',
         elementType : 'geometry.fill',
-        stylers : [{color: '#000000'}, {lightness: 70}]
+        stylers : [{color: '#000000'}, {lightness: 80}]
       },
       {
         featureType : 'road.local',
         elementType : 'geometry.fill',
-        stylers : [{color: '#000000'}, {lightness: 70}]
+        stylers : [{color: '#000000'}, {lightness: 80}]
       },
       {
         featureType : 'road.arterial',
         elementType : 'geometry.fill',
-        stylers : [{color: '#000000'}, {lightness: 70}]
+        stylers : [{color: '#000000'}, {lightness: 80}]
       },
       {
         featureType : 'road.highway',
@@ -104,7 +102,13 @@ function makeMarkers() {
     var longitude = cityInfo[i][2];
 
     var both = {lat: latitude, lng: longitude};
-    var marker = new google.maps.Marker({position: both, map: map});
+    var pin = {
+    url: "assets/marker.png", // url
+    scaledSize: new google.maps.Size(10, 10), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+};
+    var marker = new google.maps.Marker({position: both, map: map, icon: pin});
     //add an id?
     marker.metadata = {id: i};
 
@@ -112,7 +116,6 @@ function makeMarkers() {
       // console.log(this);
       var index = this.metadata.id;
       var cityClicked = cityInfo[index][0];
-      console.log(cityClicked);
 
       cityClick(cityClicked);
     });
@@ -120,22 +123,6 @@ function makeMarkers() {
   }
 }
 
-   
-//DEFAULT CITIES
-//add cities to the DOM
-
-// for (var i = 0; i < cities.length; i++) {
-//   var city = cities[i];
-//   var para = document.createElement('p'); 
-//   para.className = "city";
-//   para.innerHTML = city;
-//   document.getElementById('banner').appendChild(para);
-//   //add event lsiteners to them 
-//   para.addEventListener("click",function() {
-//     cityClick (this.innerText);
-//   });
-    
-// }
 
 function cityClick (text) {
   var theCity = text;
@@ -148,43 +135,78 @@ function clearContent(city) {
   var theTitle = document.getElementsByClassName('missedTitle');
   var theText = document.getElementsByClassName('missedDescrip');
   var theDate = document.getElementsByClassName('missedDate');
-  for(var i = theImgs.length; i >= 0; i--) {
+  var theImageLinks = document.getElementsByClassName('anImgLink');
+  var links = document.getElementsByClassName("aTextLink");
+  var errorImage = document.getElementById("errorImage");
+  var errorText = document.getElementById("errorText");
+
+  //errors
+  if(errorImage) {
+    console.log(errorImage);
+    document.getElementById('images').removeChild(errorImage);
+  }
+  if(errorText) {
+    document.getElementById('text').removeChild(errorText);
+  }
+
+
+  //backgrounds and images
+  for(var i = theImageLinks.length; i >= 0; i--) {
     var thisImage = theImgs[i];
-    if(thisImage) {
-      document.getElementById('images').removeChild(thisImage);
+
+    var thisLink = theImageLinks[i];
+
+    if(thisLink) {
+
+      thisLink.removeChild(thisImage);
+    }
+    if(thisLink) {
+      
+      document.getElementById('images').removeChild(thisLink);
     }
   }
-  for(var i = theText.length; i >= 0; i--) {
-    var thisText = theText[i];
-    console.log(thisText);
-    if(thisText) {
-      document.getElementById('text').removeChild(thisText);
-    }
-  }
+
+  //title
   for(var i = theTitle.length; i >= 0; i--) {
     var thisTitle = theTitle[i];
-    console.log(thisTitle);
+    var thisLink = links[i];
+    
     if(thisTitle) {
-      document.getElementById('text').removeChild(thisTitle);
+      thisLink.removeChild(thisTitle);
     }
   }
+  //text
+  for(var i = theText.length; i >= 0; i--) {
+    var thisText = theText[i];
+    var thisLink = links[i];
+
+    if(thisText) {
+      thisLink.removeChild(thisText);
+    }
+  }
+  //date
   for(var i = theDate.length; i >= 0; i--) {
     var thisDate = theDate[i];
-    console.log(thisDate);
+    var thisLink = links[i];
+
     if(thisDate) {
-      document.getElementById('text').removeChild(thisDate);
+      thisLink.removeChild(thisDate);
+    }
+
+        if(thisLink) {
+      document.getElementById('text').removeChild(thisLink);
     }
   }
+
   rss(newCity);
 }
 
 //CRAIGSLIST
 
 function rss (city) {
-  //barter
-  // craigslist.org/search/bar?format=rss
-  //free
-  //".craigslist.org/search/zip?format=rss&hasPic=1"
+
+  changeBanner(city);
+
   var freeURL =  "'" + "https://" + city + ".craigslist.org/search/zip?format=rss&hasPic=1" + "'";
   var allURL =  "'" + "https://" + city + ".craigslist.org/search/sss?format=rss&hasPic=1" + "'";
   var missingURL =  "'" + "https://" + city + ".craigslist.org/search/ccc?format=rss" + "'";
@@ -193,41 +215,77 @@ function rss (city) {
   var allStatement = "select * from feed where url =" + allURL;
 
   //FREE STUFF
+
   $.queryYQL(allStatement, "json", undefined, function(data){
 
     var allFreeImgs = data.query.results.item;
-    // console.log(data.query.results.item);
 
-    for (var i = 0; i < allFreeImgs.length; i++) {
-      // console.log(allFreeImgs[0].description);
+    if(allFreeImgs.length === undefined) {
+      console.log("no images!!! ");
+        $('#images').append(`
+        <p id = "errorImage"> 
+
+          Uh oh. Looks like there is nothing for sale here.
+
+          </p>
+
+        `
+        )
+
+    } else {
+
+      for (var i = 0; i < allFreeImgs.length; i++) {
 
       var img = allFreeImgs[i].enclosure.resource;
       var description = allFreeImgs[i].description;
-      // console.log(description)
-      $('#images').append(`
-      <img src = ${img} class = "free"> 
-      `)
+      var link = allFreeImgs[i].link;
 
+      $('#images').append(`
+        <a href = ${link} target="_blank" class = "anImgLink">
+          <img src = ${img} class = "free"> 
+        </a>
+      `)
+      }
     }
+
+
   }); 
 
   //MISSED CONNECTIONS
   $.queryYQL(missingStatement, "json", undefined, function(data){
 
     var allTheText = data.query.results.item;
+  
 
-    for(var i =0; i < allTheText.length; i++) {
-      console.log(allTheText[i]);
-      var title = allTheText[i].title[0];
-      var date = allTheText[i].date;
-      var description = allTheText[i].description;
-    $('#text').append(`
-      <p class = "missedDate"> ${date}</p>
-      <p class = "missedTitle"> ${title} </p>
-      <p class = "missedDescrip"> ${description}</p>
+    if (allTheText.length === undefined) {
+      console.log("no text!!! ");
 
-      `)
-      // console.log(description);
+      $('#text').append(`
+        <p id = "errorText"> 
+
+          Uh oh. Looks like there is nothing for sale here.
+
+          </p>
+
+        `
+        )
+    } else {
+
+        for(var i = 0; i < allTheText.length; i++) {
+        var link = allTheText[i].link;
+        var title = allTheText[i].title[0];
+        var date = allTheText[i].date;
+        var description = allTheText[i].description;
+
+      $('#text').append(`
+          <a href = ${link} class = "aTextLink" target="_blank">
+            <p class = "missedDate"> ${date}</p>
+            <p class = "missedTitle"> ${title} </p>
+            <p class = "missedDescrip"> ${description} <br/> <br/><br/></p>
+          <a/>
+
+        `)
+      }
     }
 
   }); 
@@ -238,7 +296,18 @@ $(document).ready(function(){
 });
 
 
+function changeBanner(city) {
+ var banner1 = document.getElementById('bannerText1');
+ var banner2 = document.getElementById("bannerText2");
 
+ var multipleCity = city;
+ for(var i = 0; i < 80; i ++ ) {
+  multipleCity += ( " " + city + " ");
+ }
+
+ banner1.innerText = multipleCity;
+ banner2.innerText = multipleCity;
+}
 
 //DONT NEED THIS -- ALREADY RAN IT ONCE AND GOT JSON
 
@@ -298,3 +367,5 @@ $(document).ready(function(){
 
 // }
 
+
+//NO RECENT POSTS POSTS

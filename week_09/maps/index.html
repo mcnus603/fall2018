@@ -1,22 +1,125 @@
 
 <html>
   <head>
+    <link rel="icon" href="assets/favicon.png" type="image/x-icon"/>
 
-    <title>Google Maps</title>
+    <title>Craigsmap</title>
     <style>
 
-      @font-face{
-        font-family: "founders";
-        src: url("fonts/FoundersGroteskTest-Medium.otf");
+      @font-face {
+        font-family: "foundersLight";
+        src: url("fonts/FoundersGroteskTextTest-Regular.otf");
+      }
+      
+     @font-face {
+        font-family: "jansonReg";
+        src: url("fonts/JansonTextLTStd-Roman.otf");
+
      }
+
+
+  /*   Smartphone landscape and portrait*/
+    @media only screen and (min-device-width : 320px) and (max-device-width : 580px) {
 
       body, html{
         margin: 0;
         padding: 0;
         font-size: 0;
+        overflow-y: scroll;
       }
 
+      #map {
+        width: 100vw;
+        height: 40vh;
+        position: absolute;
+        top: 0;
+    /*    background-color:blue;*/
+      }
+      
+      #images{
+        position: absolute;
+        height: 40vh;
+        width: 100vw;
+        background-color: green;
+      }
 
+      #horzContainer{
+        width: 100vw;
+        height: 40vh;
+        position: absolute;
+        top: 40vh;
+
+        overflow-y: hidden;
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+        top: 40vh;
+        background-color: orange;
+
+      }
+
+      #text{
+          width: 100vw;
+          height: auto;
+          position: absolute;
+          top: 80vh;
+          background-color: #DDDDDD;
+          overflow-y:scroll;
+          overflow-x: hidden;
+          background-color: pink;
+      }
+       .missedTitle{
+          color: #0D3FFB;
+          width: 90vw;
+          font-family: foundersLight, helvetica;
+          font-size: 20px;
+          line-height: 70px;
+          line-height: 30px;
+          margin-left: 5vw;
+        
+       }
+
+       .missedDate{
+          color: #0D3FFB;
+          width: 90vw;
+          font-family: foundersLight, helvetica;
+          font-size: 24px;
+          margin-left: 5vw;
+
+       }
+        .missedDescrip{
+          color: #0D3FFB;
+          width: 90vw;
+          font-family: jansonReg;
+          font-size: 24px;
+          margin-left: 5vw;
+          border-bottom: 3px solid #0D3FFB;
+       }
+
+
+      .free{
+        height: 30vh;
+        margin-top: 5vh;
+        width: auto;
+        top: 90vh;
+        background-color: #0D3FFB;
+        filter: gray; 
+        -webkit-filter: grayscale(2); 
+        filter: grayscale(2); 
+        float: left;
+        margin-right: 50px;
+       }
+
+    }
+
+    /*laptops and desktops*/
+    @media only screen and (min-device-width : 768px) and (max-device-width : 1824px){
+      body, html{
+        margin: 0;
+        padding: 0;
+        font-size: 0;
+        overflow-y: hidden;
+        overflow-x: hidden;
+      }
       #map {
         margin-top:30px;
         height: 100vh; 
@@ -25,84 +128,175 @@
         position: absolute;
        }
 
-       #images{
+      #images{
         margin-top:30px;
         height: 100vh;
         width: 35vw;
-        background-color: #DDDDDD;
         position: absolute;
         left: 20vw;
         overflow-y: scroll;
+        overflow-x: hidden;
        }
 
-       #text{
+     #text{
         margin-top:30px;
         width: 20vw;
         height: 100vh;
-        background-color: #FDF45C;
+        background-color: #DDDDDD;
         position: absolute;
         left: 0;
         overflow-y:scroll;
+        overflow-x: hidden;
        }
 
-      .free{
-        margin-left: 7.5vw;
-        width: 20vw;
-        margin-bottom: 40px;
-        border: 5px solid white;
-        box-shadow: 10px 10px black;
-       }
-
-       .freeDescription{
-        font-family: helvetica;
-        font-size: 70px;
-         margin-left: 2.5vw;
-        width: 20vw;
-        margin-bottom: 10px;
-       }
 
        .missedTitle{
-        width: 18vw;
-        font-family: founders, helvetica;
-        font-size: 24px;
+        width: 17.5vw;
+        font-family: foundersBold, helvetica;
+        font-size: 28px;
+        line-height: 30px;
         margin-left: 1vw;
         
        }
 
        .missedDate{
-        width: 18vw;
-        font-family: founders, helvetica;
-        font-size: 16px;
+        width: 17.5vw;
+        font-family: jansonReg;
+        font-size: 12px;
         margin-left: 1vw;
 
        }
         .missedDescrip{
-        width: 18vw;
-        font-family: founders, helvetica;
+        width: 17.5vw;
+        font-family: jansonReg;
         font-size: 16px;
+        line-height: 20px;
         margin-left: 1vw;
-        border-bottom: 3px solid black;
+        border-bottom: 3px solid #0D3FFB;
        }
+
+
+      .free{
+        width: 25vw;
+        height: auto;
+        margin-left: 5vw;
+        margin-top: 20px;
+        background-color: #0D3FFB;
+        filter: gray; 
+        -webkit-filter: grayscale(2); 
+        filter: grayscale(2); 
+       }
+
+       #errorImage{
+        font-family: foundersLight; 
+        font-size: 24px;
+        width: 17.5vw;
+        margin-left: 1vw;
+        position: absolute;
+        top: 40%;
+        transform: translateY(-50%);
+       }
+      #errorText{
+        font-family: foundersLight; 
+        font-size: 24px;
+        width: 17.5vw;
+        margin-left: 1vw;
+        position: absolute;
+        top: 40%;
+        transform: translateY(-50%);
+       }
+
+
+    }
+
+
+
+/*    Universal styles*/
+
+       a{
+        text-decoration: none;
+        color: #0D3FFB;
+       }
+
+       a:hover{
+        color: black;
+
+      }
+       
+       .free:hover{
+        filter: none;
+       }
+
        #banner{
         height: 30px;
-        width: 100vw;
-        /*background-color: #F8DBFF;*/
-        background-color: white;
-        overflow-x: scroll;
-    /*    position: fixed;*/
- /*       display: inline-block;*/
-
+        width: 210vw;
+        background-color: #0D3FFB;
+        position: fixed;  
        }
 
-       .city{
-      /*  color: white;*/
-        text-decoration: underline;
+       #bannerText1{
         display: inline-block;
-        font-family: founders, sans-serif;
+        height: 24px;
+        width: 100vw;
+
+
+        color: white;
         font-size: 16px;
-        margin: 10px;
+        font-family: foundersLight;
+        overflow: hidden;
+         margin-top: 2px;
+        animation: marqueeone 18s linear infinite;
+        
        }
 
+       #bannerText2{
+        display: inline-block; 
+        width: 100vw;
+        height: 24px;
+        margin-top: 2px;
+        color: white;
+        font-size: 16px;
+        font-family: foundersLight;
+        overflow: hidden;
+        
+        animation: marqueetwo 18s linear infinite;
+        animation-delay: 9s;
+
+       }
+
+      @keyframes marqueeone {
+        from {
+          transform: translateX(100%);
+        }
+        to {
+        transform: translateX(-100%);
+        }  
+      }
+
+      @keyframes marqueetwo {
+        from {
+          transform: translateX(0%);
+        }
+        to {
+        transform: translateX(-200%);
+        }
+      }
+
+
+    ::-webkit-scrollbar {
+      width: 9px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: black; 
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background-color: white;
+      border: 2px solid black;
+    }
 
 
     </style>    
@@ -110,10 +304,16 @@
 
   <body>
 
-    <div id = "banner"></div>
+    <div id = "banner">
+    <div id="bannerText1"></div>
+    <div id = "bannerText2"></div>
+
+     </div>
     <div id="text"></div>
-    <div id="images"></div>
-     <div id="map">s</div>
+    <div id = "horzContainer">
+      <div id="images"></div>
+    </div>
+     <div id="map"> </div>
 
     <script type="text/javascript" src="assets/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="assets/jquery.query-yql.min.js"></script>
