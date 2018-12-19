@@ -4,13 +4,17 @@ var globalX;
 var globalY;
 var posiNumber = 1;
 var newCookie = true;
+
+// Cookies.remove('posi1');
+// Cookies.remove('posi2');
+// Cookies.remove('posi3');
+// Cookies.remove('posi4');
+// Cookies.remove('posi5');
+// Cookies.remove('posi6');
+
 var positions = [];
 
 var shapes = ['cube', 'sphere', 'cone'];
-
-for (var i = 1; i <45; i++ ){
-	Cookies.remove('posi' +i);
-}
 
 
 //THREE JS 
@@ -27,6 +31,8 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 
 
 //camera
+
+
 
 camera = new THREE.PerspectiveCamera(90, window.innerHeight/window.innerHeight, 0.1, 3000);
 window.addEventListener('mousemove', function(e){
@@ -45,7 +51,14 @@ scene.add(light);
 light1 = new THREE.PointLight(0xffffff, 0.5);
 scene.add(light1);
 
-//resize
+//object
+
+// var geometry = (5, 5, 32);
+
+// var sphere = new THREE.Mesh( geometry, material );
+// scene.add( sphere );
+
+
 window.addEventListener('resize', function () {
    
    var width = window.innerWidth;
@@ -54,7 +67,6 @@ window.addEventListener('resize', function () {
 
 });
 
-//cone
 function makeCone () {
 	var xMin = -800
 	var xMax = 800
@@ -72,7 +84,8 @@ function makeCone () {
 	scene.add(cone);
 }
 
-//cube
+// makeCone();
+
 function makeCube() {
 
 	//randomness
@@ -87,14 +100,15 @@ function makeCube() {
 	var geometry = new THREE.BoxGeometry(100, 100, 100);
 	var material = new THREE.MeshNormalMaterial();
 
+//how to make things, geometry + material = mesh
 	var cube = new THREE.Mesh(geometry, material);
+//set position of object
 	cube.position.set(x, y, -1000);
 	alltheShapes.push(cube);
 	scene.add(cube);
 
 }
 
-//sphere
 function makeSphere () {
 	var xMin = -800
 	var xMax = 800
@@ -111,14 +125,15 @@ function makeSphere () {
 	alltheShapes.push(sphere);
 	scene.add(sphere);
 
+
 }
 
 		
-//check posi Cookie
+
 function posiCheck (num) {
 	if(Cookies.getJSON('posi' + num)) {
 
-		positions = [];
+		// console.log(posiNumber);
 
 		var theCookie = Cookies.getJSON('posi' + num);
 		//parse positions array
@@ -148,7 +163,7 @@ function posiCheck (num) {
 
 posiCheck(posiNumber);
 
-//display circles
+
 function displayCircles(x , y) {
 	var aCircle = document.createElement('div');
 	aCircle.className = 'circle';
@@ -157,28 +172,23 @@ function displayCircles(x , y) {
 	document.body.append(aCircle);
 }
 
-//mousemove change global vars
 window.addEventListener("mousemove", function(e){
 	globalX = e.clientX;
 	globalY = e.clientY;
 });
 
-//do I need another cookie?
 function adjustPosiNum () {
 	//change posinumber
 	var theCookie = Cookies.getJSON('posi' + posiNumber); 
-	console.log(posiNumber);
+	// console.log(posiNumber);
 
 	if(theCookie.length > 250) {
-
-		console.log("cookie: ", theCookie);
-		positions = [];
-
 		newCookie = true;
-		posiNumber ++;
-	}
-}
+		posiNumber = 2;
 
+	}
+
+}
 
 function addPostoCookies () {
 
@@ -209,7 +219,7 @@ function addPostoCookies () {
 
 			if(theLastX!== globalX && theLastY !== globalY) {
 
-				makeCube();
+				// makeCube();
 				var shape = makeTHREEJS();
 
 				if(shape == 0) {
@@ -232,11 +242,11 @@ function addPostoCookies () {
 	
 }
 
-
 setInterval(addPostoCookies, 1500);
 
 function makeTHREEJS() {
 	var r = Math.floor(Math.random() * 3); 
+	console.log(r);
 	var theShape = shapes[r];
 	return r;
 }
@@ -256,15 +266,9 @@ function render() {
 		alltheShapes[i].rotation.y += yR;
 
 		}
+
 	}
 
 	renderer.render(scene, camera);
 	requestAnimationFrame(render);
 }
-
-
-//problem with multiple cpookies 
-//position needs to be cleared 
-
-
-
